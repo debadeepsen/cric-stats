@@ -1,0 +1,8 @@
+import { InningsData, OverData } from '@/types'
+
+export const getManhattanData = async () => {
+  const data = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/match/manhattan`
+  ).then(res => res.json())
+  return data.innings as InningsData[]
+}
