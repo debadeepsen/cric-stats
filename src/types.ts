@@ -16,3 +16,26 @@ export type InningsData = {
   team: string
   overs: OverData[]
 }
+
+export type Batter = {
+  batter: string
+  runs: number
+  balls: number
+  fours: number
+  sixes: number
+  out: string
+}
+
+export type Bowler = {
+  bowler: string
+  overs: number
+  runs: number
+  wickets: number
+}
+
+export type InningsScorecard = {
+  innings: number
+  team: string
+  batting: Batter[]
+  bowling: Bowler[]
+}

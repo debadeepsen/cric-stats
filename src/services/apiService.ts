@@ -6,3 +6,11 @@ export const getManhattanData = async () => {
   ).then(res => res.json())
   return data.innings as InningsData[]
 }
+
+export const getScorecardData = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/match/scorecard`, {
+    cache: 'no-store'
+  })
+  const { scorecard } = await res.json()
+  return scorecard as any[]
+}
