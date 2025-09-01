@@ -70,6 +70,7 @@ export const ManhattanChart = ({ data }: { data: InningsData[] }) => {
           ))}
         </BarChart>
       </ResponsiveContainer>
+      <BarChart data={[1,2,3]}></BarChart>
     </div>
   )
 }

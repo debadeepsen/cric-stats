@@ -1,18 +1,29 @@
 import { ManhattanChart } from '@/components/charts/ManhattanChart'
 import { Scorecard } from '@/components/Scorecard'
+import { Card } from '@/components/ui/Card'
 import { getManhattanData, getScorecardData } from '@/services/apiService'
-import { OverData } from '@/types'
 
 const Home = async () => {
   const manhattanData = await getManhattanData()
   const scorecardData = await getScorecardData()
 
+  // console.log('manhattanData:', manhattanData)
+
   return (
-    <div className='mt-20 px-8'>
-      {/* <Scorecard scorecard={scorecardData} /> */}
-      <hr/>
-      <ManhattanChart data={manhattanData} />
-    </div>
+    <main>
+      <Card>
+        <Scorecard scorecard={scorecardData} />
+      </Card>
+      {/* <hr/> */}
+      <Card>
+        <ManhattanChart data={manhattanData} />
+      </Card>
+
+      {/* <div className='h-96 w-full'>
+        <TestComp />
+      </div>
+      <pre>{JSON.stringify(manhattanData, null, 2)}</pre> */}
+    </main>
   )
 }
 
