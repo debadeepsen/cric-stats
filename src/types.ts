@@ -23,7 +23,7 @@ export type Batter = {
   balls: number
   fours: number
   sixes: number
-  out: string
+  out: { kind: string; fielders: string[]; bowler: string }
 }
 
 export type Bowler = {

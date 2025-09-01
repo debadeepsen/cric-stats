@@ -32,7 +32,10 @@ export const Scorecard = ({ scorecard }: { scorecard: InningsScorecard[] }) => {
                 <td className='p-2 border text-center'>{b.balls}</td>
                 <td className='p-2 border text-center'>{b.fours}</td>
                 <td className='p-2 border text-center'>{b.sixes}</td>
-                <td className='p-2 border'>{b.out}</td>
+                <td className='p-2 border'>
+                  {b.out.kind} {b.out.fielders?.join(', ') ?? ''} b{' '}
+                  {b.out.bowler}
+                </td>
               </tr>
             ))}
           </tbody>

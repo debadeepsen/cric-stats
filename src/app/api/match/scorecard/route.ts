@@ -2,14 +2,15 @@ import { NextResponse } from 'next/server'
 import path from 'path'
 import fs from 'fs'
 import { DATA_FILE } from '@/constants'
+import { Match } from '@/schema/zod'
 
 export async function GET() {
   try {
     const filePath = path.join(process.cwd(), 'public', DATA_FILE)
     const fileContents = fs.readFileSync(filePath, 'utf8')
-    const match = JSON.parse(fileContents)
+    const match = JSON.parse(fileContents) as Match
 
-    const scorecard = match.innings.map((inn: any, idx: number) => {
+    const scorecard = match.innings.map((inn, idx) => {
       const team = inn.team
 
       // Batting summary
@@ -24,8 +25,8 @@ export async function GET() {
 
       const battingStats: Record<string, any> = {}
 
-      inn.overs.forEach((over: any) => {
-        over.deliveries.forEach((delivery: any) => {
+      inn.overs.forEach(over => {
+        over.deliveries.forEach(delivery => {
           const batter = delivery.batter
           const runs = delivery.runs.batter
           const extras = delivery.extras ?? {}
@@ -51,9 +52,13 @@ export async function GET() {
           if (runs === 6) battingStats[batter].sixes++
 
           if (delivery.wickets) {
-            delivery.wickets.forEach((w: any) => {
+            delivery.wickets.forEach(w => {
               if (w.player_out === batter) {
-                battingStats[batter].out = w.kind
+                battingStats[batter].out = {
+                  kind: w.kind,
+                  fielders: w.fielders,
+                  bowler: delivery.bowler
+                }
               }
             })
           }
