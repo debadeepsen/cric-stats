@@ -13,15 +13,15 @@ export const Tabs = ({ tabs }: { tabs: Tab[] }) => {
   return (
     <div className='w-full'>
       {/* Tab headers */}
-      <div className='flex border-b'>
+      <div className='flex'>
         {tabs.map((tab, idx) => (
           <button
             key={idx}
             onClick={() => setActiveIndex(idx)}
-            className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 -mb-px
+            className={`px-4 py-2 text-sm font-medium transition-colors rounded-md
               ${
                 activeIndex === idx
-                  ? 'border-blue-500 text-blue-600'
+                  ? 'bg-green-500/10 text-green-500'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
           >

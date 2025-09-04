@@ -40,7 +40,7 @@ export const ManhattanChart = ({ data }: { data: InningsData[] }) => {
   return (
     <div className='w-full h-[400px]'>
       <h2 className='text-lg font-semibold mb-2'>Manhattan Chart</h2>
-      <ResponsiveContainer width='100%' height={400}>
+      <ResponsiveContainer width='100%' height={360}>
         <BarChart
           data={chartData}
           margin={{ top: 20, right: 30, left: 0, bottom: 10 }}
@@ -54,7 +54,7 @@ export const ManhattanChart = ({ data }: { data: InningsData[] }) => {
             label={{ value: 'Runs', angle: -90, position: 'insideLeft' }}
           />
           <Tooltip />
-          <Legend />
+          <Legend verticalAlign='top' />
 
           {/* One <Bar> per team */}
           {teams.map((team, idx) => (
