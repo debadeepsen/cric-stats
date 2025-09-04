@@ -2,7 +2,7 @@ import { InningsScorecard } from '@/types'
 
 export const BattingScorecard = ({ inn }: { inn: InningsScorecard }) => {
   return (
-    <div className='shadow-md rounded-md border border-gray-500/20 dark:bg-gray-600/10 p-4 mb-6'>
+    <div className='shadow-sm rounded-md border border-gray-200/20 dark:bg-gray-600/10 p-4 mb-6'>
       {inn.batting.map(b => {
         const { batter, balls, runs, out, fours, sixes } = b
         const dismissal =
@@ -13,11 +13,11 @@ export const BattingScorecard = ({ inn }: { inn: InningsScorecard }) => {
             key={b.batter}
           >
             <div className='flex-1 text-base'>{batter}</div>
-            <div className='flex flex-1 justify-end space-x-4'>
-              <div className='flex-1 items-center'>
+            <div className='flex flex-1 justify-end text-gray-400 dark:text-gray-50/60'>
+              <div className='flex-1 pl-22 items-center'>
                 {dismissal} {out.fielders?.map(f => f.name).join(',')}
               </div>
-              <div className='flex-1 items-center'>
+              <div className='flex-1 pl-22 items-center'>
                 {out.kind && out.kind !== 'Not out' ? `b ${out.bowler}` : ''}
               </div>
               <div className='flex-1 text-right items-center'>

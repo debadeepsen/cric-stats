@@ -21,7 +21,7 @@ export const Scorecard = ({ scorecard }: { scorecard: InningsScorecard[] }) => {
         {/* Bowling Table */}
         <h3 className='font-semibold text-xl mb-2'>Bowling</h3>
         <BowlingScorecard inn={inn} />
-        <pre>{JSON.stringify(inn, null, 2)}</pre>
+        {/* <pre>{JSON.stringify(inn, null, 2)}</pre> */}
       </div>
     )
   }))
