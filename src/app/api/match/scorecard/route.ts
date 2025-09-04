@@ -16,14 +16,23 @@ export async function GET() {
       // Batting summary
       const batting: {
         batter: string
-        runs: number
-        balls: number
-        fours: number
-        sixes: number
-        out: string
-      }[] = []
+        runs?: number
+        balls?: number
+        fours?: number
+        sixes?: number
+        out?: {
+          kind: string
+          fielders?: string[] | undefined
+          bowler?: string | undefined
+        }
+      }[] = match.info.players[team].map(p => ({
+        batter: p,
+        out: { kind: '' }
+      }))
 
       const battingStats: Record<string, any> = {}
+
+      let totalExtras = 0
 
       inn.overs.forEach(over => {
         over.deliveries.forEach(delivery => {
@@ -31,14 +40,15 @@ export async function GET() {
           const runs = delivery.runs.batter
           const extras = delivery.extras ?? {}
 
+          totalExtras += delivery.runs.extras || 0
+
           if (!battingStats[batter]) {
             battingStats[batter] = {
               batter,
               runs: 0,
               balls: 0,
               fours: 0,
-              sixes: 0,
-              out: 'not out'
+              sixes: 0
             }
           }
 
@@ -55,7 +65,7 @@ export async function GET() {
             delivery.wickets.forEach(w => {
               if (w.player_out === batter) {
                 battingStats[batter].out = {
-                  kind: w.kind,
+                  kind: w.kind || 'Not out',
                   fielders: w.fielders,
                   bowler: delivery.bowler
                 }
@@ -65,7 +75,16 @@ export async function GET() {
         })
       })
 
-      Object.values(battingStats).forEach((b: any) => batting.push(b))
+      Object.values(battingStats).forEach((b: any) => {
+        const player = batting.find(bt => bt.batter === b.batter)
+        if (player) {
+          Object.assign(player, b)
+          console.log({ player })
+          if (!player.out?.kind && b.balls > 0) {
+            player.out = { kind: 'Not out' }
+          }
+        }
+      })
 
       // Bowling summary
       const bowling: {
@@ -103,7 +122,7 @@ export async function GET() {
         bowling.push(b)
       })
 
-      return { innings: idx + 1, team, batting, bowling }
+      return { innings: idx + 1, team, batting, bowling, totalExtras }
     })
 
     return NextResponse.json({ scorecard })

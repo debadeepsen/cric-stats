@@ -23,7 +23,7 @@ export type Batter = {
   balls: number
   fours: number
   sixes: number
-  out: { kind: string; fielders: string[]; bowler: string }
+  out: { kind: string; fielders: { name: string }[]; bowler: string }
 }
 
 export type Bowler = {
@@ -38,4 +38,5 @@ export type InningsScorecard = {
   team: string
   batting: Batter[]
   bowling: Bowler[]
+  totalExtras?: number
 }

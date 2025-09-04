@@ -12,34 +12,51 @@ export const Scorecard = ({ scorecard }: { scorecard: InningsScorecard[] }) => {
     content: (
       <div className='p-4'>
         {/* Batting Table */}
-        <h3 className='font-semibold mb-2'>Batting</h3>
-        <table className='w-full border-collapse mb-6 text-sm'>
-          <thead>
-            <tr className='bg-gray-100'>
-              <th className='p-2 border'>Batter</th>
-              <th className='p-2 border'>R</th>
-              <th className='p-2 border'>B</th>
-              <th className='p-2 border'>4s</th>
-              <th className='p-2 border'>6s</th>
-              <th className='p-2 border'>Dismissal</th>
-            </tr>
-          </thead>
-          <tbody>
-            {inn.batting.map(b => (
-              <tr key={b.batter}>
-                <td className='p-2 border'>{b.batter}</td>
-                <td className='p-2 border text-center'>{b.runs}</td>
-                <td className='p-2 border text-center'>{b.balls}</td>
-                <td className='p-2 border text-center'>{b.fours}</td>
-                <td className='p-2 border text-center'>{b.sixes}</td>
-                <td className='p-2 border'>
-                  {b.out.kind} {b.out.fielders?.join(', ') ?? ''} b{' '}
-                  {b.out.bowler}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <h3 className='font-semibold text-xl mb-2'>Batting</h3>
+        <div className='shadow-md rounded-md border border-gray-500/20 p-4 mb-6'>
+          {inn.batting.map(b => {
+            const { batter, balls, runs, out, fours, sixes } = b
+            const dismissal =
+              { caught: 'c', stumped: 'st', bowled: '' }[out.kind] ?? out.kind
+            return (
+              <div
+                className='flex justify-between border-b last:border-b-2 border-gray-600/20 py-1 text-sm'
+                key={b.batter}
+              >
+                <div className='flex-1 text-base'>{batter}</div>
+                <div className='flex flex-1 justify-end space-x-4'>
+                  <div className='flex-1 items-center'>
+                    {dismissal} {out.fielders?.map(f => f.name).join(',')}
+                  </div>
+                  <div className='flex-1 items-center'>
+                    {out.kind && out.kind !== 'Not out'
+                      ? `b ${out.bowler}`
+                      : ''}
+                  </div>
+                  <div className='flex-1 text-right items-center'>
+                    {runs !== undefined ? `${runs} (${balls})` : ''}
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+          <div className='flex justify-between font-semibold text-xs mt-6'>
+            <div>Extras:</div>
+            <div>{inn.totalExtras}</div>
+          </div>
+          <div className='flex justify-between font-semibold text-lg mt-3'>
+            <div>Total:</div>
+            <div>
+              {inn.batting.reduce((a, c) => a + (c.runs ?? 0), 0) +
+                (inn.totalExtras || 0)}
+            </div>
+          </div>
+        </div>
+        <div className='flex'>
+          <div className='w-1/2'></div>
+        </div>
+
+        {/* <pre>{JSON.stringify(inn, null, 2)}</pre> */}
 
         {/* Bowling Table */}
         <h3 className='font-semibold mb-2'>Bowling</h3>

@@ -9,6 +9,8 @@ const Home = async () => {
 
   // console.log('manhattanData:', manhattanData)
 
+  console.log({ scorecardData })
+
   return (
     <main>
       <Card>
