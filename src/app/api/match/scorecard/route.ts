@@ -13,7 +13,7 @@ export async function GET() {
     const scorecard = match.innings.map((inn, idx) => {
       const team = inn.team
 
-      // Batting summary
+      // Batting summary (unchanged) ...
       const batting: {
         batter: string
         runs?: number
@@ -31,7 +31,6 @@ export async function GET() {
       }))
 
       const battingStats: Record<string, any> = {}
-
       let totalExtras = 0
 
       inn.overs.forEach(over => {
@@ -52,7 +51,6 @@ export async function GET() {
             }
           }
 
-          // count legal balls
           if (!extras.wides && !extras.noballs) {
             battingStats[batter].balls++
           }
@@ -79,28 +77,37 @@ export async function GET() {
         const player = batting.find(bt => bt.batter === b.batter)
         if (player) {
           Object.assign(player, b)
-          console.log({ player })
           if (!player.out?.kind && b.balls > 0) {
             player.out = { kind: 'Not out' }
           }
         }
       })
 
-      // Bowling summary
+      // Bowling summary with maidens
       const bowling: {
         bowler: string
         overs: number
         runs: number
         wickets: number
+        maidens: number
       }[] = []
 
       const bowlingStats: Record<string, any> = {}
 
       inn.overs.forEach((over: any) => {
+        let overRuns = 0
+        let legalDeliveries = 0
+
         over.deliveries.forEach((delivery: any) => {
           const bowler = delivery.bowler
           if (!bowlingStats[bowler]) {
-            bowlingStats[bowler] = { bowler, balls: 0, runs: 0, wickets: 0 }
+            bowlingStats[bowler] = {
+              bowler,
+              balls: 0,
+              runs: 0,
+              wickets: 0,
+              maidens: 0
+            }
           }
 
           const extras = delivery.extras ?? {}
@@ -108,12 +115,21 @@ export async function GET() {
 
           if (!extras.wides && !extras.noballs) {
             bowlingStats[bowler].balls++
+            legalDeliveries++
           }
+
+          overRuns += delivery.runs.total
 
           if (delivery.wickets) {
             bowlingStats[bowler].wickets += delivery.wickets.length
           }
         })
+
+        // If bowler bowled this over and gave away 0 runs, count as maiden
+        if (legalDeliveries > 0 && overRuns === 0) {
+          const bowler = over.deliveries[0].bowler
+          bowlingStats[bowler].maidens++
+        }
       })
 
       Object.values(bowlingStats).forEach((b: any) => {

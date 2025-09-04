@@ -2,7 +2,7 @@ import { InningsScorecard } from '@/types'
 
 export const BattingScorecard = ({ inn }: { inn: InningsScorecard }) => {
   return (
-    <div className='shadow-md rounded-md border border-gray-500/20 p-4 mb-6'>
+    <div className='shadow-md rounded-md border border-gray-500/20 dark:bg-gray-600/10 p-4 mb-6'>
       {inn.batting.map(b => {
         const { batter, balls, runs, out, fours, sixes } = b
         const dismissal =

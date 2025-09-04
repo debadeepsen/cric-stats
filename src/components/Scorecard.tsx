@@ -17,11 +17,11 @@ export const Scorecard = ({ scorecard }: { scorecard: InningsScorecard[] }) => {
         <h3 className='font-semibold text-xl mb-2'>Batting</h3>
         <BattingScorecard inn={inn} />
 
-        {/* <pre>{JSON.stringify(inn, null, 2)}</pre> */}
 
         {/* Bowling Table */}
         <h3 className='font-semibold text-xl mb-2'>Bowling</h3>
         <BowlingScorecard inn={inn} />
+        <pre>{JSON.stringify(inn, null, 2)}</pre>
       </div>
     )
   }))

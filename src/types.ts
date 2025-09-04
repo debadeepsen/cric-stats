@@ -31,6 +31,7 @@ export type Bowler = {
   overs: number
   runs: number
   wickets: number
+  maidens: number
 }
 
 export type InningsScorecard = {
