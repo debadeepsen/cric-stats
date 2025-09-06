@@ -1,11 +1,3 @@
-export type Partnership = {
-  innings: number
-  team: string
-  batters: [string, string]
-  runs: number
-  balls: number
-}
-
 export type OverData = {
   over: number
   runs: number
@@ -40,4 +32,18 @@ export type InningsScorecard = {
   batting: Batter[]
   bowling: Bowler[]
   totalExtras?: number
+}
+
+export type Partnership = {
+  batters: [string, string]
+  runs: number
+  balls: number
+  batsmen: { name: string; runs: number }[]
+  extras: number
+}
+
+export type InningsPartnership = {
+  innings: number
+  team: string
+  partnerships: Partnership[]
 }

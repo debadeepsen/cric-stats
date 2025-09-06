@@ -15,7 +15,7 @@ const Home = async () => {
 
   // console.log('manhattanData:', manhattanData)
 
-  console.log({ scorecardData })
+  console.log({ partnershipData })
 
   return (
     <main>
@@ -28,10 +28,20 @@ const Home = async () => {
         </Card>
         <Card>
           <h2 className='text-lg font-semibold mb-2'>Partnerships</h2>
-          <PartnershipChart data={partnershipData} />
+          <PartnershipChart innings={partnershipData?.innings} />
           {/* <pre>{JSON.stringify(partnershipData, null, 2)}</pre> */}
         </Card>
       </div>
+      <footer className='mt-6 text-center text-xs text-gray-500'>
+        Favicon from{' '}
+        <a
+          target='_blank'
+          href='https://www.flaticon.com/free-icons/cricket-ball'
+          title='cricket ball icons'
+        >
+          Cricket ball icons created by Aranagraphics - Flaticon
+        </a>
+      </footer>
     </main>
   )
 }

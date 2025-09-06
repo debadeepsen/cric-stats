@@ -21,7 +21,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #111;
+    --background: hsl(220 27% 4%);
     --foreground: #eee;
   }
 }
@@ -37,6 +37,9 @@ main {
   @apply min-h-screen max-w-7xl mx-auto mt-6 p-4;
 }
 
+.card-bg {
+  background: hsl(--220 23% 6%);
+}
 /* .recharts-legend-wrapper {
   @apply -top-8;
 } */

@@ -1,5 +1,6 @@
 'use client'
 
+import { TEAMS_COLORS } from '@/constants'
 import { InningsData } from '@/types'
 import {
   ResponsiveContainer,
@@ -48,29 +49,31 @@ export const ManhattanChart = ({ data }: { data: InningsData[] }) => {
           <CartesianGrid strokeDasharray='3 3' stroke='#5555' />
           <XAxis
             dataKey='over'
-            label={{ value: 'Overs', position: 'insideBottom', offset: -5 }}
+            label={{ value: 'Overs', position: 'insideBottom', offset: -10 }}
+            fontSize={12}
           />
           <YAxis
-            label={{ value: 'Runs', angle: -90, position: 'insideLeft' }}
+            label={{ value: 'Runs', angle: -90, position: 'insideLeft', offset: 10 }}
+            fontSize={12}
           />
           <Tooltip />
-          <Legend verticalAlign='top' />
+          <Legend verticalAlign='top' offset={20} />
 
           {/* One <Bar> per team */}
           {teams.map((team, idx) => (
             <Bar
               key={team}
               dataKey={team}
-              fill={idx === 0 ? '#60a5fa' : '#4ade80'} // green / blue
+              fill={TEAMS_COLORS[idx]}
               name={team}
               radius={[4, 4, 0, 0]}
             >
-              <LabelList dataKey={team} position='top' />
+              <LabelList dataKey={team} fontSize={10} position='top' />
             </Bar>
           ))}
         </BarChart>
       </ResponsiveContainer>
-      <BarChart data={[1,2,3]}></BarChart>
+      <BarChart data={[1, 2, 3]}></BarChart>
     </div>
   )
 }
