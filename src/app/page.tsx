@@ -11,8 +11,6 @@ import {
 } from '@/services/apiService'
 
 const Home = async () => {
-  return <div className='m-10 mx-auto w-2/3'>Deplyed</div>
-  if (!process.env.VERCEL) return <div>Awaiting deployment...</div>
 
   const manhattanData = await getManhattanData()
   const scorecardData = await getScorecardData()
