@@ -9,16 +9,15 @@ import {
   getScorecardData,
   getWormData
 } from '@/services/apiService'
+import { de } from 'zod/locales'
 
 const Home = async () => {
+  if (!process.env.VERCEL) return <div>Awaiting deployment...</div>
+
   const manhattanData = await getManhattanData()
   const scorecardData = await getScorecardData()
   const partnershipData = await getPartnershipData()
   const wormData = await getWormData()
-
-  // console.log('manhattanData:', manhattanData)
-
-  console.log({ partnershipData })
 
   return (
     <main>
