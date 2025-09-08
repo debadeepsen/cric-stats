@@ -9,9 +9,9 @@ import {
   getScorecardData,
   getWormData
 } from '@/services/apiService'
-import { de } from 'zod/locales'
 
 const Home = async () => {
+  return <div className='m-10 mx-auto w-2/3'>Deplyed</div>
   if (!process.env.VERCEL) return <div>Awaiting deployment...</div>
 
   const manhattanData = await getManhattanData()
