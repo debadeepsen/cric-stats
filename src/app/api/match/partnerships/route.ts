@@ -102,8 +102,6 @@ export async function GET() {
       })
     })
 
-    console.log({ inningsPartnerships })
-
     return NextResponse.json({ innings: inningsPartnerships })
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 })
