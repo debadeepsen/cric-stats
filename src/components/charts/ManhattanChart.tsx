@@ -44,7 +44,7 @@ export const ManhattanChart = ({ data }: { data: InningsData[] }) => {
       <ResponsiveContainer width='100%' height={360}>
         <BarChart
           data={chartData}
-          margin={{ top: 20, right: 30, left: 0, bottom: 10 }}
+          margin={{ top: 20, right: 30, left: 0, bottom: 30 }}
         >
           <CartesianGrid strokeDasharray='3 3' stroke='#5555' />
           <XAxis

@@ -47,3 +47,9 @@ export type InningsPartnership = {
   team: string
   partnerships: Partnership[]
 }
+
+export type WormInnings = {
+  innings: number
+  team: string
+  overs: { over: number; cumulative: number }[]
+}

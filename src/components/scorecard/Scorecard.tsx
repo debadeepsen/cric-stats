@@ -3,7 +3,7 @@
 import { InningsScorecard } from '@/types'
 import { Tabs } from '@/components/ui/Tabs'
 import { BattingScorecard } from './BattingScorecard'
-import { BowlingScorecard } from './scorecard/BowlingScorecard'
+import { BowlingScorecard } from './BowlingScorecard'
 
 export const Scorecard = ({ scorecard }: { scorecard: InningsScorecard[] }) => {
   if (!scorecard || scorecard.length === 0) return <p>No scorecard data</p>

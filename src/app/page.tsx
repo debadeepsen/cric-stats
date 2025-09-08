@@ -1,17 +1,20 @@
 import { ManhattanChart } from '@/components/charts/ManhattanChart'
-import { PartnershipChart } from '@/components/PartnershipChart'
-import { Scorecard } from '@/components/Scorecard'
+import { PartnershipChart } from '@/components/charts/PartnershipChart'
+import { WormChart } from '@/components/charts/WormChart'
+import { Scorecard } from '@/components/scorecard/Scorecard'
 import { Card } from '@/components/ui/Card'
 import {
   getManhattanData,
   getPartnershipData,
-  getScorecardData
+  getScorecardData,
+  getWormData
 } from '@/services/apiService'
 
 const Home = async () => {
   const manhattanData = await getManhattanData()
   const scorecardData = await getScorecardData()
   const partnershipData = await getPartnershipData()
+  const wormData = await getWormData()
 
   // console.log('manhattanData:', manhattanData)
 
@@ -26,10 +29,14 @@ const Home = async () => {
         <Card>
           <ManhattanChart data={manhattanData} />
         </Card>
+      </div>
+      <div className='flex'>
         <Card>
           <h2 className='text-lg font-semibold mb-2'>Partnerships</h2>
           <PartnershipChart innings={partnershipData?.innings} />
-          {/* <pre>{JSON.stringify(partnershipData, null, 2)}</pre> */}
+        </Card>
+        <Card>
+          <WormChart data={wormData?.worm} />
         </Card>
       </div>
       <footer className='mt-6 text-center text-xs text-gray-500'>
