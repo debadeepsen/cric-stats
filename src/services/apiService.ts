@@ -1,15 +1,17 @@
 import { InningsData, InningsPartnership, WormInnings } from '@/types'
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://cric-stats-ds.vercel.app' //Vercel URL
+
 export const getManhattanData = async () => {
   const data = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/match/manhattan`
+    `${baseUrl}/api/match/manhattan`
   ).then(res => res.json())
   return data.innings as InningsData[]
 }
 
 export const getScorecardData = async () => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/match/scorecard`,
+    `${baseUrl}/api/match/scorecard`,
     {
       cache: 'no-store'
     }
@@ -20,7 +22,7 @@ export const getScorecardData = async () => {
 
 export const getPartnershipData = async () => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/match/partnerships`,
+    `${baseUrl}/api/match/partnerships`,
     {
       cache: 'no-store'
     }
@@ -31,7 +33,7 @@ export const getPartnershipData = async () => {
 
 export const getWormData = async () => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/match/worm`,
+    `${baseUrl}/api/match/worm`,
     {
       cache: 'no-store'
     }
