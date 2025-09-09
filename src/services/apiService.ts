@@ -1,4 +1,4 @@
-import { InningsData, InningsPartnership, WormInnings } from '@/types'
+import { BallHeatmap, InningsData, InningsPartnership, WormInnings } from '@/types'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://cric-stats-ds.vercel.app' //Vercel URL
 
@@ -40,4 +40,15 @@ export const getWormData = async () => {
   )
   const data = await res.json()
   return data as { worm: WormInnings[] }
+}
+
+export const getHeatmapData = async () => {
+  const res = await fetch(
+    `${baseUrl}/api/match/heatmap`,
+    {
+      cache: 'no-store'
+    }
+  )
+  const data = await res.json()
+  return data as { heatmap: BallHeatmap[] }
 }

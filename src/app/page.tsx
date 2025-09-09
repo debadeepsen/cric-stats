@@ -1,9 +1,11 @@
+import { HeatmapChart } from '@/components/charts/HeatmapChart'
 import { ManhattanChart } from '@/components/charts/ManhattanChart'
 import { PartnershipChart } from '@/components/charts/PartnershipChart'
 import { WormChart } from '@/components/charts/WormChart'
 import { Scorecard } from '@/components/scorecard/Scorecard'
 import { Card } from '@/components/ui/Card'
 import {
+  getHeatmapData,
   getManhattanData,
   getPartnershipData,
   getScorecardData,
@@ -11,11 +13,11 @@ import {
 } from '@/services/apiService'
 
 const Home = async () => {
-
   const manhattanData = await getManhattanData()
   const scorecardData = await getScorecardData()
   const partnershipData = await getPartnershipData()
   const wormData = await getWormData()
+  const heatmapData = await getHeatmapData()
 
   return (
     <main>
@@ -27,6 +29,12 @@ const Home = async () => {
           <ManhattanChart data={manhattanData} />
         </Card>
       </div>
+      <div>
+        <Card>
+          <h2 className='text-lg font-semibold mb-2'>Heatmap</h2>
+          <HeatmapChart data={heatmapData?.heatmap} />
+        </Card>
+      </div>
       <div className='flex'>
         <Card>
           <h2 className='text-lg font-semibold mb-2'>Partnerships</h2>
@@ -36,7 +44,7 @@ const Home = async () => {
           <WormChart data={wormData?.worm} />
         </Card>
       </div>
-      <footer className='mt-6 text-center text-xs text-gray-500'>
+      <footer className='my-6 text-center text-xs text-gray-500'>
         Favicon from{' '}
         <a
           target='_blank'

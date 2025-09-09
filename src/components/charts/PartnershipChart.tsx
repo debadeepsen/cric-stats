@@ -87,24 +87,6 @@ export const PartnershipChart = ({
             </Bar>
           </BarChart>
         </ResponsiveContainer>
-
-        {/* Batter labels & extras below each partnership */}
-        {/* <div className='space-y-4 mt-2'>
-              {data.map(p => (
-                <div
-                  key={p.id}
-                  className='flex justify-between text-sm text-gray-700 px-2'
-                >
-                  <span>
-                    {p.batter1Name} <strong>{p.batter1}</strong>
-                  </span>
-                  <span>Extras: {p.extras}</span>
-                  <span>
-                    {p.batter2Name} <strong>{p.batter2}</strong>
-                  </span>
-                </div>
-              ))}
-            </div> */}
       </div>
     )
 
