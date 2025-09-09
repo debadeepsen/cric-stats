@@ -64,3 +64,9 @@ export type BallHeatmap = {
   team: string
   series: HeatmapSeries[]
 }
+
+export type RunRateData = {
+  innings: number
+  team: string
+  overs: { over: number; runRate: number }[]
+}

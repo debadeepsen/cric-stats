@@ -25,7 +25,7 @@ const options: ApexCharts.ApexOptions = {
   colors: ['#3fab0b'],
   dataLabels: {
     enabled: true,
-    style: { colors: ['#000a'] }
+    style: { colors: ['#005305'] }
   }
 }
 

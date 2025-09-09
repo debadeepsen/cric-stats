@@ -1,6 +1,7 @@
 import { HeatmapChart } from '@/components/charts/HeatmapChart'
 import { ManhattanChart } from '@/components/charts/ManhattanChart'
 import { PartnershipChart } from '@/components/charts/PartnershipChart'
+import { RunRateChart } from '@/components/charts/RunrateChart'
 import { WormChart } from '@/components/charts/WormChart'
 import { Scorecard } from '@/components/scorecard/Scorecard'
 import { Card } from '@/components/ui/Card'
@@ -8,6 +9,7 @@ import {
   getHeatmapData,
   getManhattanData,
   getPartnershipData,
+  getRunRateData,
   getScorecardData,
   getWormData
 } from '@/services/apiService'
@@ -18,6 +20,9 @@ const Home = async () => {
   const partnershipData = await getPartnershipData()
   const wormData = await getWormData()
   const heatmapData = await getHeatmapData()
+  const runRateData = await getRunRateData()
+
+  console.log({ runRateData })
 
   return (
     <main>
@@ -42,6 +47,12 @@ const Home = async () => {
         </Card>
         <Card>
           <WormChart data={wormData?.worm} />
+        </Card>
+      </div>
+      <div>
+        <Card>
+          <h2 className='text-lg font-semibold mb-2'>Over-by-Over Run Rate</h2>
+          <RunRateChart data={runRateData.innings} />
         </Card>
       </div>
       <footer className='my-6 text-center text-xs text-gray-500'>
