@@ -25,6 +25,20 @@ export const getMatchInfo = async () => {
   }
 }
 
+export const getMatchSummary = async () => {
+  const data = await fetch(`${baseUrl}/api/match/summary`, { cache: 'no-store' }).then((res) =>
+    res.json()
+  )
+  return data.summary as {
+    innings: number
+    team: string
+    runs: number
+    wickets: number
+    overs: number
+  }[]
+}
+
+
 export const getManhattanData = async () => {
   const data = await fetch(`${baseUrl}/api/match/manhattan`).then(res =>
     res.json()

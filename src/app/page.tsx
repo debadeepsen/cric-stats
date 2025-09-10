@@ -10,6 +10,7 @@ import {
   getHeatmapData,
   getManhattanData,
   getMatchInfo,
+  getMatchSummary,
   getPartnershipData,
   getRunRateData,
   getScorecardData,
@@ -18,6 +19,7 @@ import {
 
 const Home = async () => {
   const matchInfo = await getMatchInfo()
+  const summary = await getMatchSummary()
   const manhattanData = await getManhattanData()
   const scorecardData = await getScorecardData()
   const partnershipData = await getPartnershipData()
@@ -28,7 +30,7 @@ const Home = async () => {
   return (
     <main>
       <div>
-        <MatchInfo info={matchInfo} />
+      <MatchInfo info={matchInfo} summary={summary} />
       </div>
       <Card>
         <Scorecard scorecard={scorecardData} />

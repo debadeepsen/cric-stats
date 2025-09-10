@@ -4,6 +4,25 @@ export type OverData = {
   wickets: number
 }
 
+export type MatchInfoProps = {
+  teams: string[]
+  toss: { winner: string; decision: string }
+  venue: string
+  city?: string
+  dates: string[]
+  matchType: string
+  outcome: { winner?: string; by?: any; result?: string }
+  officials?: { umpires?: string[]; referee?: string }
+}
+
+export type MatchSummary = {
+  innings: number
+  team: string
+  runs: number
+  wickets: number
+  overs: number
+}
+
 export type InningsData = {
   team: string
   overs: OverData[]

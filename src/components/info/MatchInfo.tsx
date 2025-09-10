@@ -1,66 +1,79 @@
 'use client'
 
-type MatchInfoProps = {
-  teams: string[]
-  toss: { winner: string; decision: string }
-  venue: string
-  city?: string
-  dates: string[]
-  matchType: string
-  outcome: { winner?: string; by?: any; result?: string }
-  officials?: { umpires?: string[]; referee?: string }
-}
+import { MatchInfoProps, MatchSummary } from '@/types'
+import { formatDate } from '@/utils/lib'
 
-export const MatchInfo = ({ info }: { info: MatchInfoProps }) => {
+export const MatchInfo = ({
+  info,
+  summary
+}: {
+  info: MatchInfoProps
+  summary: MatchSummary[]
+}) => {
+  const renderOutcome = () => {
+    if (info.outcome?.winner) {
+      const byKey = info.outcome.by ? Object.keys(info.outcome.by)[0] : ''
+      const byValue = info.outcome.by ? Object.values(info.outcome.by)[0] : ''
+      return (
+        <span className='font-semibold'>
+          {info.outcome.winner} won{byKey && ` by ${byValue} ${byKey}`}
+        </span>
+      )
+    }
+    return <span>{info.outcome?.result ?? 'Match in progress'}</span>
+  }
+
   return (
-    <div className='p-4 mb-6'>
-      <h1 className='text-5xl mb-6'>
-        {info.teams[0]} vs {info.teams[1]}
-      </h1>
-
-      <p className='text-sm'>
-        <span className='font-semibold'> {info.matchType} match at </span>
-        {info.venue}
-        {info.city ? `, ${info.city}` : ''}
-      </p>
-      <p className='text-sm'></p>
-      <p className='text-sm'>
-        <span className='font-semibold'>Dates:</span> {info.dates.join(', ')}
-      </p>
-
-      <p className='text-sm'>
-        <span className='font-semibold'>Toss:</span> {info.toss.winner} chose to{' '}
-        {info.toss.decision}
-      </p>
-
-      {info.outcome?.winner ? (
-        <p className='text-sm text-green-700 font-semibold'>
-          {info.outcome.winner}
-          {' won '}
-          {info.outcome.by
-            ? `by ${Object.values(info.outcome.by)} ${Object.keys(
-                info.outcome.by
-              )}`
-            : ''}
+    <div className='w-full rounded-lg shadow-sm overflow-hidden mb-6'>
+      {/* Header */}
+      <div className='px-6 py-4'>
+        <h1 className='text-4xl font-bold mb-4'>
+          {info.teams[0]} <span className='font-normal'>vs</span>{' '}
+          {info.teams[1]}
+        </h1>
+        <p className='text-sm mt-1'>
+          {info.matchType} • {info.venue}
+          {info.city ? `, ${info.city}` : ''} •{' '}
+          {info.dates.map(formatDate).join(', ')}
         </p>
-      ) : (
-        <p className='text-sm'>{info.outcome?.result ?? 'Match in progress'}</p>
-      )}
+      </div>
 
-      {info.officials && (
-        <div className='mt-2 text-sm'>
-          <p>
-            <span className='font-semibold'>Umpires:</span>{' '}
-            {info.officials.umpires?.join(', ')}
+      {/* Outcome / Status */}
+      <div className='px-6 py-3 text-sm'>{renderOutcome()}</div>
+
+      {/* Score summary */}
+      <div className='px-6 py-4 text-sm space-y-1'>
+        {summary.map(s => (
+          <p key={s.innings} className='font-medium'>
+            {s.team}: {s.runs}/{s.wickets} ({s.overs} ov)
           </p>
-          {info.officials.referee && (
-            <p>
-              <span className='font-semibold'>Referee:</span>{' '}
-              {info.officials.referee}
-            </p>
-          )}
-        </div>
-      )}
+        ))}
+      </div>
+
+      {/* Details */}
+      <div className='px-6 py-4 space-y-2 text-sm'>
+        <p>
+          <span className='font-medium'>Toss:</span> {info.toss.winner} chose to{' '}
+          {info.toss.decision}
+        </p>
+
+        {info.officials && (
+          <>
+            {(info.officials.umpires?.length ?? 0) > 0 && (
+              <p>
+                <span className='font-medium'>Umpires:</span>{' '}
+                {info.officials.umpires?.join(', ')}
+              </p>
+            )}
+            {info.officials.referee && (
+              <p>
+                <span className='font-medium'>Referee:</span>{' '}
+                {info.officials.referee}
+              </p>
+            )}
+          </>
+        )}
+      </div>
     </div>
   )
 }
