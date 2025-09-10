@@ -1,8 +1,13 @@
 'use client'
 
 import { BallHeatmap } from '@/types'
-import Chart from 'react-apexcharts'
 import { Tabs } from '../ui/Tabs'
+import dynamic from 'next/dynamic';
+
+  const Chart = dynamic(() => import('react-apexcharts'), {
+    ssr: false, // Ensure ApexCharts is not imported during SSR
+  });
+        
 
 const options: ApexCharts.ApexOptions = {
   chart: {

@@ -15,7 +15,7 @@ import {
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   const data = payload.map((p: any) => p.payload)?.[0]
-  console.log(data)
+  
   return !!data ? (
     <div className='bg-white/90 dark:bg-gray-950/90 text-gray-800 dark:text-gray-100 p-2 border border-gray-300/30 shadow-lg'>
       <div><span className='font-semibold'>{data.batter1Name}: </span>{data.batter1}</div>

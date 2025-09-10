@@ -14,7 +14,6 @@ import {
 } from 'recharts'
 
 export const WormChart = ({ data }: { data: WormInnings[] }) => {
-  console.log('WormChart data:', data)
   if (!data || data.length === 0) return <p>No worm chart data</p>
 
   // Merge innings into a common dataset by overs

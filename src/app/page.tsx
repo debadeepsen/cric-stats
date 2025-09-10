@@ -22,7 +22,7 @@ const Home = async () => {
   const heatmapData = await getHeatmapData()
   const runRateData = await getRunRateData()
 
-  console.log({ runRateData })
+  // console.log({ runRateData })
 
   return (
     <main>
