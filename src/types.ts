@@ -56,11 +56,10 @@ export type WormInnings = {
 
 export type HeatmapSeries = {
   name: string
-  data: { x: string; y: number }[]
+  data: number[]
 }
 
 export type BallHeatmap = {
-  innings: number
   team: string
   series: HeatmapSeries[]
 }

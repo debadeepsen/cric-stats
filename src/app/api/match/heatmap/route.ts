@@ -10,36 +10,23 @@ export async function GET() {
     const fileContents = fs.readFileSync(filePath, 'utf8')
     const match = JSON.parse(fileContents) as Match
 
-    const heatmap: {
-      innings: number
-      team: string
-      series: { name: string; data: { x: string; y: number }[] }[]
-    }[] = []
+    const heatmap: any[] = []
 
-    match.innings.forEach((inn: any, idx: number) => {
-      const seriesMap: Record<number, { name: string; data: { x: string; y: number }[] }> = {}
+    match.innings.forEach(innings => {
+      const series: { name: string; data: number[] }[] = []
 
-      inn.overs.forEach((over: any, overIdx: number) => {
-        over.deliveries.forEach((delivery: any, dIdx: number) => {
-          const runs = delivery.runs.total
-          const ballNumber = dIdx + 1 // 1,2,3,...
+      const longestOver = Math.max(
+        ...innings.overs.map(o => o.deliveries?.length)
+      )
 
-          if (!seriesMap[ballNumber]) {
-            seriesMap[ballNumber] = { name: `${ballNumber}`, data: [] }
-          }
-
-          seriesMap[ballNumber].data.push({
-            x: `${overIdx + 1}`,
-            y: runs,
-          })
+      for (let i = 0; i < longestOver; i++) {
+        series.push({
+          name: (i + 1).toString(),
+          data: innings.overs.map(o => o.deliveries[i]?.runs.total)
         })
-      })
+      }
 
-      heatmap.push({
-        innings: idx + 1,
-        team: inn.team,
-        series: Object.values(seriesMap),
-      })
+      heatmap.push({ team: innings.team, series })
     })
 
     return NextResponse.json({ heatmap })
