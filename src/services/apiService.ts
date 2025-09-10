@@ -9,6 +9,22 @@ import {
 const baseUrl =
   process.env.NEXT_PUBLIC_BASE_URL || 'https://cric-stats-ds.vercel.app' //Vercel URL
 
+export const getMatchInfo = async () => {
+  const data = await fetch(`${baseUrl}/api/match/info`, { cache: 'no-store' }).then((res) =>
+    res.json()
+  )
+  return data.info as {
+    teams: string[]
+    toss: { winner: string; decision: string }
+    venue: string
+    city?: string
+    dates: string[]
+    matchType: string
+    outcome: any
+    officials?: any
+  }
+}
+
 export const getManhattanData = async () => {
   const data = await fetch(`${baseUrl}/api/match/manhattan`).then(res =>
     res.json()

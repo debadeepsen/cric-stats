@@ -3,11 +3,13 @@ import { ManhattanChart } from '@/components/charts/ManhattanChart'
 import { PartnershipChart } from '@/components/charts/PartnershipChart'
 import { RunRateChart } from '@/components/charts/RunrateChart'
 import { WormChart } from '@/components/charts/WormChart'
+import { MatchInfo } from '@/components/info/MatchInfo'
 import { Scorecard } from '@/components/scorecard/Scorecard'
 import { Card } from '@/components/ui/Card'
 import {
   getHeatmapData,
   getManhattanData,
+  getMatchInfo,
   getPartnershipData,
   getRunRateData,
   getScorecardData,
@@ -15,6 +17,7 @@ import {
 } from '@/services/apiService'
 
 const Home = async () => {
+  const matchInfo = await getMatchInfo()
   const manhattanData = await getManhattanData()
   const scorecardData = await getScorecardData()
   const partnershipData = await getPartnershipData()
@@ -22,10 +25,11 @@ const Home = async () => {
   const heatmapData = await getHeatmapData()
   const runRateData = await getRunRateData()
 
-  // console.log({ runRateData })
-
   return (
     <main>
+      <div>
+        <MatchInfo info={matchInfo} />
+      </div>
       <Card>
         <Scorecard scorecard={scorecardData} />
       </Card>
