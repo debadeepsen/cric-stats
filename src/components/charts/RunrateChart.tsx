@@ -1,7 +1,7 @@
 'use client'
 
 import { TEAMS_COLORS } from '@/constants'
-import { RunRateData } from '@/types'
+import { RunRateData } from '@/utils/types'
 import {
   ResponsiveContainer,
   LineChart,

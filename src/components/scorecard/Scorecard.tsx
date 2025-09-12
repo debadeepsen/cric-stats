@@ -1,6 +1,6 @@
 'use client'
 
-import { InningsScorecard } from '@/types'
+import { InningsScorecard } from '@/utils/types'
 import { Tabs } from '@/components/ui/Tabs'
 import { BattingScorecard } from './BattingScorecard'
 import { BowlingScorecard } from './BowlingScorecard'

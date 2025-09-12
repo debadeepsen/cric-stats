@@ -1,7 +1,7 @@
 'use client'
 
 import { TEAMS_COLORS } from '@/constants'
-import { WormInnings } from '@/types'
+import { WormInnings } from '@/utils/types'
 import {
   ResponsiveContainer,
   LineChart,

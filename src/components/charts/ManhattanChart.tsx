@@ -1,7 +1,7 @@
 'use client'
 
 import { TEAMS_COLORS } from '@/constants'
-import { InningsData } from '@/types'
+import { InningsData } from '@/utils/types'
 import {
   ResponsiveContainer,
   BarChart,

@@ -1,4 +1,4 @@
-import { InningsScorecard } from '@/types'
+import { InningsScorecard } from '@/utils/types'
 
 export const BattingScorecard = ({ inn }: { inn: InningsScorecard }) => {
   return (

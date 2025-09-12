@@ -1,6 +1,6 @@
 'use client'
 
-import { InningsPartnership } from '@/types'
+import { InningsPartnership } from '@/utils/types'
 import { Tabs } from '../ui/Tabs'
 import {
   ResponsiveContainer,
@@ -15,12 +15,21 @@ import {
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   const data = payload.map((p: any) => p.payload)?.[0]
-  
+
   return !!data ? (
     <div className='bg-white/90 dark:bg-gray-950/90 text-gray-800 dark:text-gray-100 p-2 border border-gray-300/30 shadow-lg'>
-      <div><span className='font-semibold'>{data.batter1Name}: </span>{data.batter1}</div>
-      <div><span className='font-semibold'>{data.batter2Name}: </span>{data.batter2}</div>
-      <div><span className='font-semibold'>{'Extras'}: </span>{data.extras}</div>
+      <div>
+        <span className='font-semibold'>{data.batter1Name}: </span>
+        {data.batter1}
+      </div>
+      <div>
+        <span className='font-semibold'>{data.batter2Name}: </span>
+        {data.batter2}
+      </div>
+      <div>
+        <span className='font-semibold'>{'Extras'}: </span>
+        {data.extras}
+      </div>
     </div>
   ) : null
 }
@@ -62,22 +71,30 @@ export const PartnershipChart = ({
             <CartesianGrid strokeDasharray='3' stroke='#5555' />
             <XAxis type='number' hide />
             <YAxis type='category' dataKey='id' width={40} tick={false} />
-            <Tooltip
-              content={CustomTooltip}
-            />
+            <Tooltip content={CustomTooltip} />
             <Bar
               dataKey='batter1'
               stackId='a'
               fill='#ba10ef'
               name={'Batter 1'}
-              radius={0}
+              radius={10}
+              style={{stroke: '#fff'}}
             ></Bar>
-            <Bar dataKey='batter2' stackId='a' fill='#1b46e9' name='Batter 2' />
+            <Bar
+              dataKey='batter2'
+              stackId='a'
+              fill='#1b46e9'
+              name='Batter 2'
+              radius={10}
+              style={{stroke: '#fff'}}
+            />
             <Bar
               dataKey='extras'
               stackId='a'
               fill='#22c55e'
               name='Extras'
+              radius={10}
+              style={{stroke: '#fff'}}
             >
               <LabelList
                 dataKey={'partnership'}

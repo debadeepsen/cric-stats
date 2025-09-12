@@ -1,6 +1,6 @@
 'use client'
 
-import { BallHeatmap } from '@/types'
+import { BallHeatmap } from '@/utils/types'
 import { Tabs } from '../ui/Tabs'
 import dynamic from 'next/dynamic';
 

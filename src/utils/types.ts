@@ -88,3 +88,14 @@ export type RunRateData = {
   team: string
   overs: { over: number; runRate: number }[]
 }
+
+export type BatterStrikeRateData = {
+  name: string
+  data: { ball: number; strikeRate: number }[]
+}
+
+export type InningsStrikeRate = {
+  innings: number
+  team: string
+  batters: BatterStrikeRateData[]
+}

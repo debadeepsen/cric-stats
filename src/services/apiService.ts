@@ -2,9 +2,10 @@ import {
   BallHeatmap,
   InningsData,
   InningsPartnership,
+  InningsStrikeRate,
   RunRateData,
   WormInnings
-} from '@/types'
+} from '@/utils/types'
 
 const baseUrl =
   process.env.NEXT_PUBLIC_BASE_URL || 'https://cric-stats-ds.vercel.app' //Vercel URL
@@ -83,4 +84,12 @@ export const getRunRateData = async () => {
     cache: 'no-store'
   }).then(res => res.json())
   return data as {innings: RunRateData[]}
+}
+
+export const getStrikeRateData = async (): Promise<InningsStrikeRate[]> => {
+  const data = await fetch(`${baseUrl}/api/match/strike-rate`, {
+    cache: 'no-store',
+  }).then((res) => res.json())
+
+  return data.strikeRates as InningsStrikeRate[]
 }
