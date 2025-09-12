@@ -69,7 +69,7 @@ export const MatchInfo = ({
         <span className='font-medium'>Toss:</span> {info.toss.winner} chose to{' '}
         {info.toss.decision}
       </div>
-      <div className='px-6 py-0 mb-6 text-sm'>{renderOutcome()}</div>
+      <div className='px-6 py-0 mb-4 text-sm'>{renderOutcome()}</div>
 
       {/* Details */}
       <div className='px-6 py-4 space-y-2 text-sm'>

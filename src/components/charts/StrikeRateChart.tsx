@@ -12,6 +12,7 @@ import {
   Legend
 } from 'recharts'
 import { Tabs } from '../ui/Tabs'
+import { ChartGrid } from '../ui/ChartGrid'
 
 // deterministic color generator
 const stringToColor = (str: string): string => {
@@ -24,14 +25,36 @@ const stringToColor = (str: string): string => {
 }
 
 export const StrikeRateChart = ({ data }: { data: InningsStrikeRate }) => {
+  if (!data || !data.batters || data.batters.length === 0) {
+    return <p>No strike rate data</p>
+  }
+
+  // find max balls faced by any batter in this innings
+  const maxBalls = Math.max(...data.batters.map(b => b.data.length))
+
+  // create a merged dataset: each row is { ball, Batter1: sr, Batter2: sr, ... }
+  const merged: Record<string, any>[] = []
+  for (let i = 1; i <= maxBalls; i++) {
+    const row: Record<string, any> = { ball: i }
+    data.batters.forEach(batter => {
+      const entry = batter.data.find(d => d.ball === i)
+      row[batter.name] = entry ? entry.strikeRate : null
+    })
+    merged.push(row)
+  }
+
   return (
     <div className='w-full h-[400px]'>
       <ResponsiveContainer width='100%' height={400}>
-        <LineChart margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-          <CartesianGrid strokeDasharray='3 3' stroke='#5555' />
+        <LineChart
+          data={merged}
+          margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+        >
+          <ChartGrid />
           <XAxis
             dataKey='ball'
             type='number'
+            domain={[1, maxBalls]}
             label={{
               value: 'Balls Faced',
               position: 'insideBottom',
@@ -43,17 +66,17 @@ export const StrikeRateChart = ({ data }: { data: InningsStrikeRate }) => {
             label={{ value: 'Strike Rate', angle: -90, position: 'insideLeft' }}
           />
           <Tooltip />
-          <Legend verticalAlign='top' offset={-10} />
+          <Legend verticalAlign='top' />
           {data.batters.map(batter => (
             <Line
               key={batter.name}
-              data={batter.data}
-              dataKey='strikeRate'
-              name={batter.name}
+              type='monotone'
+              dataKey={batter.name}
               stroke={stringToColor(batter.name)}
               strokeWidth={2}
               dot={false}
               isAnimationActive={false}
+              connectNulls={false}
             />
           ))}
         </LineChart>
@@ -67,9 +90,9 @@ export const StrikeRateTabs = ({ data }: { data: InningsStrikeRate[] }) => {
 
   return (
     <Tabs
-      tabs={data.map((inn) => ({
+      tabs={data.map(inn => ({
         label: `${inn.team}`,
-        content: <StrikeRateChart data={inn} />,
+        content: <StrikeRateChart data={inn} />
       }))}
     />
   )

@@ -12,6 +12,7 @@ import {
   Tooltip,
   Legend
 } from 'recharts'
+import { ChartGrid } from '../ui/ChartGrid'
 
 export const RunRateChart = ({ data }: { data: RunRateData[] }) => {
   if (!data || data.length === 0) return <p>No run rate data</p>
@@ -35,7 +36,7 @@ export const RunRateChart = ({ data }: { data: RunRateData[] }) => {
           data={merged}
           margin={{ top: 20, right: 40, left: 20, bottom: 20 }}
         >
-          <CartesianGrid strokeDasharray='3 3' stroke='#5555' />
+          <ChartGrid />
           <XAxis
             dataKey='over'
             label={{ value: 'Overs', position: 'insideBottom', offset: -5 }}

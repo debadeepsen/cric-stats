@@ -13,6 +13,7 @@ import {
   Legend,
   LabelList
 } from 'recharts'
+import { ChartGrid } from '../ui/ChartGrid'
 
 type OverRow = {
   over: number
@@ -46,7 +47,7 @@ export const ManhattanChart = ({ data }: { data: InningsData[] }) => {
           data={chartData}
           margin={{ top: 20, right: 30, left: 0, bottom: 30 }}
         >
-          <CartesianGrid strokeDasharray='3 3' stroke='#5555' />
+          <ChartGrid />
           <XAxis
             dataKey='over'
             label={{ value: 'Overs', position: 'insideBottom', offset: -10 }}

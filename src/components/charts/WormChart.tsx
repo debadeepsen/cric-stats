@@ -12,6 +12,7 @@ import {
   Tooltip,
   Legend
 } from 'recharts'
+import { ChartGrid } from '../ui/ChartGrid'
 
 export const WormChart = ({ data }: { data: WormInnings[] }) => {
   if (!data || data.length === 0) return <p>No worm chart data</p>
@@ -38,7 +39,7 @@ export const WormChart = ({ data }: { data: WormInnings[] }) => {
           data={merged}
           margin={{ top: 20, right: 40, left: 20, bottom: 50 }}
         >
-          <CartesianGrid strokeDasharray='3 3' stroke='#5555' />
+          <ChartGrid />
           <XAxis
             dataKey='over'
             label={{ value: 'Overs', position: 'insideBottom', offset: -5 }}

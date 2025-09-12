@@ -19,7 +19,7 @@ export const Tabs = ({ tabs }: { tabs: Tab[] }) => {
           <button
             key={tab.label}
             onClick={() => setActiveIndex(index)}
-            className={`mr-1 px-4 py-2 text-sm font-medium transition-colors border-b-2 cursor-pointer focus:outline-none`}
+            className={`mr-1 px-4 py-2 font-medium transition-colors border-b-2 cursor-pointer focus:outline-none`}
             style={{
               color:
                 index === activeIndex
